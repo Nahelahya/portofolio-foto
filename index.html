@@ -4,26 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- FONT -->
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-
-    <!-- BOOTSTRAP -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css"
     />
     <link
       rel="stylesheet"
@@ -31,7 +21,7 @@
     />
     <link rel="stylesheet" href="style.css" />
 
-    <title>Portfolio Nahel</title>
+    <title>Nahel Ahya Ramadhani — Portfolio Fotografi</title>
   </head>
 
   <body>
@@ -44,8 +34,6 @@
         <li><a href="#contact">KONTAK</a></li>
       </ul>
     </nav>
-
-    <div class="cursor-glow"></div>
 
     <section class="hero" id="home">
       <div class="hero-text">
@@ -93,144 +81,121 @@
       </div>
     </section>
 
-    <section class="section tech" id="study">
+    <section class="section gallery" id="study">
       <div class="section-header">
         <p class="section-label">KOLEKSI</p>
         <h2>Koleksi Foto</h2>
       </div>
-      <div class="splide">
-        <div class="splide__track">
-          <ul class="splide__list">
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20240728_170411_976.jpg"
-                  data-lightbox="gallery"
-                  data-title="Portrait"
-                  ><img src="IMG_20240728_170411_976.jpg" alt="Portrait"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20240818_053343_947.jpg"
-                  data-lightbox="gallery"
-                  data-title="Travel"
-                  ><img src="IMG_20240818_053343_947.jpg" alt="Travel"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20241006_063201_640.jpg"
-                  data-lightbox="gallery"
-                  data-title="Street"
-                  ><img src="IMG_20241006_063201_640.jpg" alt="Street"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20241006_125851_174.jpg"
-                  data-lightbox="gallery"
-                  data-title="Event"
-                  ><img src="IMG_20241006_125851_174.jpg" alt="Event"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20250105_172633_814.jpg"
-                  data-lightbox="gallery"
-                  data-title="Product"
-                  ><img src="IMG_20250105_172633_814.jpg" alt="Product"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20260510_070511_880.jpg"
-                  data-lightbox="gallery"
-                  data-title="New Photo 1"
-                  ><img src="IMG_20260510_070511_880.jpg" alt="New Photo 1"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20260510_072119_974.jpg"
-                  data-lightbox="gallery"
-                  data-title="New Photo 2"
-                  ><img src="IMG_20260510_072119_974.jpg" alt="New Photo 2"
-                /></a>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div class="tech-card">
-                <a
-                  href="IMG_20260510_083701_707.jpg"
-                  data-lightbox="gallery"
-                  data-title="New Photo 3"
-                  ><img src="IMG_20260510_083701_707.jpg" alt="New Photo 3"
-                /></a>
-              </div>
-            </li>
-          </ul>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="alam">Alam</button>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20240728_170411_976.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20240728_170411_976.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20240818_053343_947.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20240818_053343_947.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20241006_063201_640.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20241006_063201_640.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20241006_125851_174.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20241006_125851_174.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20250105_172633_814.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20250105_172633_814.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20260510_070511_880.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20260510_070511_880.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20260510_072119_974.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20260510_072119_974.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <a href="IMG_20260510_083701_707.jpg" data-lightbox="gallery" data-title="Alam">
+            <img src="IMG_20260510_083701_707.jpg" alt="Alam" />
+            <div class="gallery-overlay"><span>Alam</span></div>
+          </a>
         </div>
       </div>
     </section>
 
     <footer class="footer" id="contact">
-      <div class="footer-top">
-        <p class="footer-title">Temukan saya di</p>
-        <div class="footer-social">
-          <a
-            href="https://www.instagram.com/nahelahya"
-            target="_blank"
-            rel="noreferrer"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
-          <a href="mailto:nathadev@zohomail.com"
-            ><i class="fa-solid fa-envelope"></i
-          ></a>
-          <a href="https://github.com/Nahelahya"
-            ><i class="fa-brands fa-github"></i
-          ></a>
-          <a
-            href="https://www.linkedin.com/in/nahel-ahya-064b703b2/"
-            target="_blank"
-            rel="noreferrer"
-            ><i class="fa-brands fa-linkedin"></i
-          ></a>
+      <div class="footer-inner">
+        <div class="footer-col footer-brand">
+          <h3 class="footer-logo">NAHEL</h3>
+          <p class="footer-subtitle">Fotografer Hobi</p>
+          <p class="footer-tagline">Menangkap momen, membingkai cerita.</p>
+          <p class="footer-copy">&copy; 2026 Nahel Ahya Ramadhani</p>
         </div>
-      </div>
-      <div class="footer-links">
-        <div class="footer-column">
-          <h3>Informasi</h3>
+        <div class="footer-col">
+          <h4>Navigasi</h4>
           <ul>
             <li><a href="#about">Tentang</a></li>
             <li><a href="#study">Koleksi</a></li>
+            <li><a href="#contact">Kontak</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul class="footer-contact-list">
             <li>
-              <a href="https://wa.me/6285175261027" target="_blank">Kontak</a>
+              <a href="mailto:nathadev@zohomail.com">
+                <i class="fa-solid fa-envelope"></i> nathadev@zohomail.com
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/6285175261027" target="_blank" rel="noreferrer">
+                <i class="fa-brands fa-whatsapp"></i> +62 851-7526-1027
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/nahelahya" target="_blank" rel="noreferrer">
+                <i class="fa-brands fa-instagram"></i> @nahelahya
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Nahelahya" target="_blank" rel="noreferrer">
+                <i class="fa-brands fa-github"></i> Nahelahya
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/nahel-ahya-064b703b2/" target="_blank" rel="noreferrer">
+                <i class="fa-brands fa-linkedin"></i> Nahel Ahya
+              </a>
             </li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 Nahel Ahya Ramadhani</p>
-      </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     <script>
+      // Nav scroll highlight
       const sections = document.querySelectorAll("section");
       const navLinks = document.querySelectorAll(".menu a");
 
@@ -250,29 +215,23 @@
         });
       });
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const splide = new Splide(".splide", {
-          type: "loop",
-          padding: "5rem",
-          perPage: 2,
-          gap: "1.5rem",
-          breakpoints: {
-            900: { perPage: 1, padding: "2rem" },
-          },
-        });
+      // Gallery filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const galleryItems = document.querySelectorAll(".gallery-item");
 
-        splide.mount();
-      });
-    </script>
-    <script>
-      const cursorGlow = document.querySelector(".cursor-glow");
-      document.addEventListener("mousemove", (e) => {
-        cursorGlow.style.opacity = "1";
-        cursorGlow.style.left = e.clientX + "px";
-        cursorGlow.style.top = e.clientY + "px";
-      });
-      document.addEventListener("mouseleave", () => {
-        cursorGlow.style.opacity = "0";
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.filter;
+          galleryItems.forEach((item) => {
+            if (filter === "all" || item.dataset.category === filter) {
+              item.classList.remove("hidden");
+            } else {
+              item.classList.add("hidden");
+            }
+          });
+        });
       });
     </script>
   </body>
