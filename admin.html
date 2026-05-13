@@ -22,8 +22,14 @@
     .fg input, .fg select { width: 100%; padding: 12px; border: 3px solid #000; font-family: "Courier New", monospace; }
     .btn-admin { padding: 12px 24px; border: 4px solid #000; background: #00ccff; font-family: "Courier New", monospace; font-weight: 700; text-transform: uppercase; cursor: pointer; }
     .btn-admin:hover { background: #ff3366; color: #fff; }
-    .btn-danger { background: #ff3366; color: #fff; padding: 8px 16px; border: 3px solid #000; cursor: pointer; font-family: inherit; }
-    .btn-danger:hover { background: #000; }
+        .btn-danger { background: #ff3366; color: #fff; padding: 8px 16px; border: 3px solid #000; cursor: pointer; font-family: inherit; }
+        .btn-danger:hover { background: #000; }
+        .btn-edit { background: none; border: none; cursor: pointer; font-size: 14px; margin-left: 6px; padding: 2px 6px; }
+        .btn-edit:hover { background: #000; color: #fff; }
+        .btn-mini { padding: 4px 12px; border: 3px solid #000; background: #00ff88; font-family: inherit; font-weight: 700; cursor: pointer; font-size: 12px; }
+        .btn-mini:hover { background: #000; color: #fff; }
+        .btn-cancel { background: #ccc; }
+        .btn-cancel:hover { background: #000; color: #fff; }
     .msg { padding: 12px; border: 3px solid #000; margin-bottom: 16px; }
     .msg.success { background: #00ff88; }
     .msg.error { background: #ff3366; color: #fff; }
@@ -172,7 +178,18 @@
               ${photos.map(p => `
                 <div class="photo-item">
                   <img src="${p.src}" alt="${p.title}" />
-                  <div class="photo-info"><strong>${p.title}</strong><br>Category: ${p.category}</div>
+                  <div class="photo-info">
+                    <div id="titleDisplay_${p.public_id.replace(/\//g, '_')}">
+                      <span id="titleText_${p.public_id.replace(/\//g, '_')}"><strong>${p.title}</strong></span>
+                      <button class="btn-edit" onclick="editTitle('${p.public_id}', '${p.title.replace(/'/g, "\\'")}')">&#9998;</button>
+                    </div>
+                    <div id="titleEdit_${p.public_id.replace(/\//g, '_')}" style="display:none">
+                      <input type="text" id="titleInput_${p.public_id.replace(/\//g, '_')}" value="${p.title}" style="width:100%;margin-bottom:4px" />
+                      <button class="btn-mini" onclick="saveTitle('${p.public_id}')">Save</button>
+                      <button class="btn-mini btn-cancel" onclick="cancelTitle('${p.public_id}', '${p.title.replace(/'/g, "\\'")}')">Cancel</button>
+                    </div>
+                    <br>Category: ${p.category}
+                  </div>
                   <button class="btn-danger" onclick="deletePhoto('${p.public_id}')">Delete</button>
                 </div>
               `).join("")}
@@ -239,6 +256,32 @@
       const sel = document.getElementById("catSelect");
       const inp = document.getElementById("catInput");
       if (sel && inp) inp.style.display = sel.value === "__new__" ? "block" : "none";
+    };
+
+    window.editTitle = (public_id, currentTitle) => {
+      document.getElementById("titleDisplay_" + public_id.replace(/\//g, '_')).style.display = "none";
+      document.getElementById("titleEdit_" + public_id.replace(/\//g, '_')).style.display = "block";
+    };
+
+    window.saveTitle = async (public_id) => {
+      const key = public_id.replace(/\//g, '_');
+      const input = document.getElementById("titleInput_" + key);
+      const title = input.value.trim();
+      if (!title) return;
+
+      const res = await api("/update-title", {
+        method: "POST",
+        body: JSON.stringify({ public_id, title })
+      });
+      const data = await res.json();
+      if (data.ok) loadAdmin();
+    };
+
+    window.cancelTitle = (public_id, currentTitle) => {
+      const key = public_id.replace(/\//g, '_');
+      document.getElementById("titleDisplay_" + key).style.display = "block";
+      document.getElementById("titleEdit_" + key).style.display = "none";
+      document.getElementById("titleInput_" + key).value = currentTitle;
     };
 
     window.deletePhoto = async (public_id) => {
