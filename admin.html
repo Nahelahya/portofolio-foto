@@ -176,19 +176,32 @@
 
         document.getElementById("uploadForm").onsubmit = async (e) => {
           e.preventDefault();
-          const fd = new FormData(e.target);
           const msg = document.getElementById("uploadMsg");
-          const res = await fetch(BASE + "/upload", {
-            method: "POST",
-            headers: { "Authorization": getToken() },
-            body: fd
-          });
-          if (res.ok) {
-            msg.innerHTML = '<div class="msg success">Uploaded! Reloading...</div>';
-            setTimeout(() => loadAdmin(), 1500);
-          } else {
-            msg.innerHTML = '<div class="msg error">Upload failed</div>';
-          }
+          const fileInput = e.target.querySelector('input[type="file"]');
+          const file = fileInput.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const base64 = reader.result;
+            const fd = new FormData(e.target);
+            const res = await api("/upload", {
+              method: "POST",
+              body: JSON.stringify({
+                image: base64,
+                category: fd.get("category"),
+                title: fd.get("title")
+              })
+            });
+            if (res.ok) {
+              msg.innerHTML = '<div class="msg success">Uploaded! Reloading...</div>';
+              setTimeout(() => loadAdmin(), 1500);
+            } else {
+              const data = await res.json();
+              msg.innerHTML = '<div class="msg error">' + (data.error || "Upload failed") + '</div>';
+            }
+          };
+          reader.readAsDataURL(file);
         };
 
         document.getElementById("catForm").onsubmit = async (e) => {

@@ -1,7 +1,16 @@
 module.exports = async (req, res) => {
-  if (req.method !== "POST") return res.status(405).send("Method not allowed");
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return res.status(200).end();
+  }
 
-  const { password } = req.body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const { password } = req.body || {};
   const adminPassword = process.env.ADMIN_PASSWORD || "nathadev";
 
   if (password === adminPassword) {

@@ -1,45 +1,43 @@
 const cloudinary = require("./cloudinary");
-const formidable = require("formidable");
 
 function verifyToken(token) {
   if (!token) return false;
-  const decoded = Buffer.from(token, "base64").toString("utf8");
-  const [, password] = decoded.split(":");
-  return password === (process.env.ADMIN_PASSWORD || "nathadev");
+  try {
+    const decoded = Buffer.from(token, "base64").toString("utf8");
+    const [, password] = decoded.split(":");
+    return password === (process.env.ADMIN_PASSWORD || "nathadev");
+  } catch { return false; }
 }
 
 module.exports = async (req, res) => {
-  if (req.method !== "POST") return res.status(405).send("Method not allowed");
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return res.status(200).end();
+  }
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   if (!verifyToken(req.headers.authorization)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const form = formidable({});
-
   try {
-    const [fields, files] = await form.parse(req);
-    const file = files.photo?.[0];
-    if (!file) return res.status(400).json({ error: "No file" });
+    const { image, category, title } = req.body;
+    if (!image) return res.status(400).json({ error: "No image data" });
 
-    const category = fields.category?.[0] || "uncategorized";
-    const title = fields.title?.[0] || "Untitled";
-
-    const result = await cloudinary.uploader.upload(file.filepath, {
-      tags: ["photo", category],
-      context: { custom: { title } },
-      use_filename: true,
+    const result = await cloudinary.uploader.upload(image, {
+      tags: ["photo", category || "uncategorized"],
+      context: { custom: { title: title || "Untitled" } },
+      folder: "portfolio",
     });
 
     res.json({ ok: true, src: result.secure_url });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Upload failed" });
+    console.error("Upload error:", err);
+    res.status(500).json({ error: "Upload failed: " + err.message });
   }
-};
-
-module.exports.config = {
-  api: {
-    bodyParser: false,
-  },
 };
