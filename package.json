@@ -1,0 +1,8 @@
+{
+  "name": "nahel-portfolio",
+  "version": "1.0.0",
+  "dependencies": {
+    "cloudinary": "^2.5.1",
+    "formidable": "^3.5.2"
+  }
+}
