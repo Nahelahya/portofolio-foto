@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     const photos = (result.resources || []).map(r => ({
       src: r.secure_url,
       public_id: r.public_id,
-      title: r.context?.custom?.title || r.context?.custom?.caption || "Untitled",
+      title: r.context?.custom?.title || r.context?.title || r.context?.caption || "Untitled",
       category: (r.tags || []).filter(t => t !== "photo")[0] || "uncategorized",
       created_at: r.created_at,
     }));
