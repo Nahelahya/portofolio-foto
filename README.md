@@ -28,7 +28,7 @@ untuk pengalaman yang responsif dan interaktif.
 ## Link Akses
 
 Kunjungi portfolio di:
-[https://nahelahya.github.io/portofolio-foto/](https://nahelahya.github.io/portofolio-foto/)
+https://portofolio-foto.vercel.app/
 
 ## Kontak
 
