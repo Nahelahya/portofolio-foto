@@ -133,9 +133,15 @@
               </div>
               <div class="fg">
                 <label>Category</label>
-                <select name="category">
+                ${cats.length > 0 ? `
+                <select name="category" id="catSelect" onchange="toggleCatInput()">
                   ${cats.map(c => `<option value="${c}">${c.charAt(0).toUpperCase() + c.slice(1)}</option>`).join("")}
+                  <option value="__new__">+ Add new...</option>
                 </select>
+                <input type="text" name="category_new" id="catInput" placeholder="Type new category name" style="display:none;margin-top:8px" />
+                ` : `
+                <input type="text" name="category" id="catInput" placeholder="Type category name (e.g. alam)" required />
+                `}
               </div>
               <div class="fg">
                 <label>Title</label>
@@ -185,11 +191,13 @@
           reader.onload = async () => {
             const base64 = reader.result;
             const fd = new FormData(e.target);
+            let category = fd.get("category");
+            if (category === "__new__") category = fd.get("category_new");
             const res = await api("/upload", {
               method: "POST",
               body: JSON.stringify({
                 image: base64,
-                category: fd.get("category"),
+                category: category || "uncategorized",
                 title: fd.get("title")
               })
             });
@@ -226,6 +234,12 @@
         console.error(err);
       }
     }
+
+    window.toggleCatInput = () => {
+      const sel = document.getElementById("catSelect");
+      const inp = document.getElementById("catInput");
+      if (sel && inp) inp.style.display = sel.value === "__new__" ? "block" : "none";
+    };
 
     window.deletePhoto = async (public_id) => {
       if (!confirm("Delete this photo?")) return;
