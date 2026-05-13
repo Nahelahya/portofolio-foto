@@ -20,13 +20,19 @@ module.exports = async (req, res) => {
       .max_results(100)
       .execute();
 
-    const photos = (result.resources || []).map(r => ({
-      src: r.secure_url,
-      public_id: r.public_id,
-      title: r.context?.custom?.title || r.context?.title || r.context?.caption || "Untitled",
-      category: (r.tags || []).filter(t => t !== "photo")[0] || "uncategorized",
-      created_at: r.created_at,
-    }));
+    const photos = (result.resources || []).map(r => {
+      const ctx = r.context || {};
+      const title = ctx.title || ctx.caption || ctx.custom?.title ||
+        ctx.custom?.caption ||
+        (r.public_id || "").split("/").pop().replace(/\.[^.]+$/, "").replace(/^IMG_\d+_/, "") || "Untitled";
+      return {
+        src: r.secure_url,
+        public_id: r.public_id,
+        title,
+        category: (r.tags || []).filter(t => t !== "photo")[0] || "uncategorized",
+        created_at: r.created_at,
+      };
+    });
 
     res.json(photos);
   } catch (err) {

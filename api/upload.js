@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
     const result = await cloudinary.uploader.upload(image, {
       tags: ["photo", category || "uncategorized"],
-      context: { custom: { title: title || "Untitled" } },
+      context: `custom|title=${title || "Untitled"}`,
       folder: "portfolio",
     });
 

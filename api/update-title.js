@@ -30,10 +30,9 @@ module.exports = async (req, res) => {
   if (!title || !title.trim()) return res.status(400).json({ error: "Title is required" });
 
   try {
-    const ctx = { custom: { title: title.trim() } };
     await cloudinary.api.update(public_id, {
       resource_type: "image",
-      context: ctx,
+      context: `custom|title=${title.trim()}`,
     });
 
     res.json({ ok: true });
